@@ -18,8 +18,6 @@ def process(source,dest,target):
    lineSize = size / (lines - 2)
    targetLines = math.ceil( target/lineSize)
 
-   #print("Found {} lines {} bytes {} len".format(lines,size,targetLines))
-
    choices  = random.sample(range(2,lines-1), k=targetLines)
 
    with dest as out:
@@ -38,9 +36,5 @@ if __name__ == "__main__":
    parser.add_argument('outfile', nargs='?', type=argparse.FileType('wb'))
    parser.add_argument('--size')
    params = parser.parse_args()
-   print(params)
-   print("Input = {}".format(params.infile.name))
-   print("Output = {}".format(params.outfile.name))
-   print("Size = {} ".format(ureg.parse_expression(params.size).to(ureg.bytes)))
    size = ureg.parse_expression(params.size).to(ureg.bytes)
    process(params.infile,params.outfile,size)
